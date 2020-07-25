@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2';
+import "./LineGraph.css";
 import numeral from "numeral";
 
 const options = {
@@ -62,7 +63,7 @@ const buildChartData = (data, casesType) => {
   return chartData;
 }
 
-function LineGraph({casesType = "cases"}) {
+function LineGraph({casesType}) {
   const [data, setData] = useState({});
 
   // https://disease.sh/v3/covid-19/historical/all?lastdays=120
@@ -72,7 +73,7 @@ function LineGraph({casesType = "cases"}) {
     return () => {
       console.log('Clean Up')
     }
-  }, [])
+  }, [casesType])
 
   const getData = async () => {
     await fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=120')
@@ -86,7 +87,7 @@ function LineGraph({casesType = "cases"}) {
   }
 
   return (
-    <div>
+    <div className="graph">
       {data?.length > 0 && (
         <Line 
           data={{
